@@ -1,0 +1,152 @@
+<app-header></app-header>
+
+<div class="row" id="profilecard">
+    <div *ngFor="let teacher of profileDetails | async" id="bloodCards">
+        <a><img *ngIf="teacher.gender === 'Male' || teacher.gender === 'male'" class="bloodimg" [src]="'assets/img/maleprofessor.png'" width="140" height="140"></a>
+        <a><img *ngIf="teacher.gender === 'Female' || teacher.gender === 'female'" class="bloodimg" [src]="'assets/img/femaleprofessor.png'" width="140" height="140"></a>
+        <div class="card-block">
+            <div class="text"><b class="element" style="margin-left: 6%;"> {{teacher.teachername}}</b> </div>
+            <div class="text"><small style="font-size: smaller; margin-left: 6%; padding: 3px 8px 3px 8px; background-color: rgb(87, 64, 8); border-radius: 10px; font-weight: bold; width: 55%; color: white;">{{teacher.teacherid}}</small> </div>
+            <div class="text"><b class="element" style="margin-left: 6%;"> {{teacher.degreecompleted}}</b> </div>
+            <div class="text"><b class="element" style="margin-left: 6%;"> {{teacher.mobile}}</b> </div>
+            <div class="text"><b class="element" style="margin-left: 6%;"> {{teacher.institutionname}}</b> </div>
+            <div class="text"><b class="element" style="margin-left: 6%;"> {{teacher.email}}</b> </div>
+            <div class="text"><b class="element" style="margin-left: 6%;"> {{teacher.experience}} years of experience</b> </div>
+            <div class="btndiv" style="align-items: center;"><button class="editbtn" (click)="editProfile()"><i class="fa fa-edit"></i> edit</button></div>
+            <small id="message" *ngIf="temp === true" style="text-align: center; margin-top: 3%; color: green;"><b>Profile Updated Successfully !!!</b></small> 
+          </div>
+    </div>
+</div>
+  
+<div class="container register" id="profileform">
+    <div class="row">
+        <div class="col-md-9 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="textual">Update Teacher Profile</h3>
+                    <small *ngIf="temp === false" style="font-weight: bold; margin-left: 18%; text-align: center; color: darkgreen;" id="profile"><b>!!! Dear {{loggedUser}}, update your profile here</b></small>
+                    <small *ngIf="temp === true" style="text-align: center; color: green;"><b>Profile Updated Successfully !!!</b></small>  
+                    <form #Updateform="ngForm" style="margin-top: -15%;" (ngSubmit)="updateTeacherProfile()">
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Teacher Name : <b style="color:red;">*</b></label>
+                                    <input type="text" class="form-control" placeholder="Teacher Name *" name="teachername" id="teachername" [(ngModel)]="teacher.teachername" required pattern="^[a-zA-Z\s]*$"
+                                    #teachername="ngModel"
+                                    [class.is-invalid]="teachername.invalid && teachername.touched"
+                                    >
+                                    <div *ngIf="teachername.errors && teachername.invalid && teachername.touched">
+                                      <small class="text-danger" *ngIf="teachername.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="teachername.errors.pattern"><b>Invalid Teacher Name</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email : <b style="color:red;">*</b></label>
+                                    <input type="email" class="form-control" placeholder="Email Address *" name="teacheremail" id="email" [(ngModel)]="teacher.email" required pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                                    #email="ngModel"
+                                    [class.is-invalid]="email.invalid && email.touched"
+                                    >
+                                    <div *ngIf="email.errors && email.invalid && email.touched">
+                                      <small class="text-danger" *ngIf="email.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="email.errors.pattern"><b>Invalid Email</b></small>
+                                    </div>                        
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender : <b style="color:red;">*</b></label>
+                                    <input type="text" class="form-control" placeholder="Gender *" name="teachergender" id="gender" [(ngModel)]="teacher.gender" required pattern="^[a-zA-Z\s]*$"
+                                    #gender="ngModel"
+                                    [class.is-invalid]="gender.invalid && gender.touched"
+                                    >
+                                    <div *ngIf="gender.errors && gender.invalid && gender.touched">
+                                      <small class="text-danger" *ngIf="gender.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="gender.errors.pattern"><b>Invalid Gender</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile Number : <b style="color:red;">*</b></label>
+                                    <input type="tel" maxlength="10" minlength="10" class="form-control" id="mobile" placeholder="Mobile *" name="teachermobile" [(ngModel)]="teacher.mobile" required pattern="^[0-9\+\-\ ]*$"
+                                    #mobile="ngModel"
+                                    [class.is-invalid]="mobile.invalid && mobile.touched"
+                                    >
+                                    <div *ngIf="mobile.errors && mobile.invalid && mobile.touched">
+                                      <small class="text-danger" *ngIf="mobile.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="mobile.errors.pattern"><b>Invalid Mobile Number</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password : <b style="color:red;">*</b></label>
+                                    <input type="password" class="form-control" placeholder="Password *" id="pwd" name="pwd" [(ngModel)]="teacher.password" required 
+                                    #teacherpassword="ngModel"
+                                    [class.is-invalid]="teacherpassword.invalid && teacherpassword.touched">
+                                    <div *ngIf="teacherpassword.errors && teacherpassword.invalid && teacherpassword.touched">
+                                        <small class="text-danger" *ngIf="teacherpassword.errors.required"><b>Field is Required</b></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><b>Institution Name : </b><b style="color:red;">*</b></label>
+                                    <input type="text" class="form-control" placeholder="Institution Name *" id="institutionname" name="institutionname" [(ngModel)]="teacher.institutionname" required pattern="^[a-zA-Z\s]*$"
+                                    #institutionname="ngModel"
+                                    [class.is-invalid]="institutionname.invalid && institutionname.touched"
+                                    >
+                                    <div *ngIf="institutionname.errors && institutionname.invalid && institutionname.touched">
+                                      <small class="text-danger" *ngIf="institutionname.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="institutionname.errors.pattern"><b>Invalid Instituation Name</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Department : <b style="color:red;">*</b></label>
+                                    <input type="text" class="form-control" placeholder="Department *" id="department" name="department" [(ngModel)]="teacher.department" required pattern="^[a-zA-Z\s]*$"
+                                    #department="ngModel"
+                                    [class.is-invalid]="department.invalid && department.touched"
+                                    >
+                                    <div *ngIf="department.errors && department.invalid && department.touched">
+                                      <small class="text-danger" *ngIf="department.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="department.errors.pattern"><b>Invalid Department</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Experience : <b style="color:red;">*</b></label>
+                                    <input type="number" class="form-control" placeholder="Year of experience *" id="experience" name="experience" [(ngModel)]="teacher.experience" pattern="^[0-9\+\-\ ]*$"
+                                    #experience="ngModel"
+                                    [class.is-invalid]="experience.invalid && experience.touched"
+                                    >
+                                    <div *ngIf="experience.errors && experience.invalid && experience.touched">
+                                      <small class="text-danger" *ngIf="experience.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="experience.errors.pattern"><b>Invalid Experience</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Degree Completion : <b style="color:red;">*</b></label>
+                                    <input type="text" class="form-control" placeholder="Degrees completed *" id="degreecompleted" name="degreecompleted" [(ngModel)]="teacher.degreecompleted" required pattern="^[a-zA-Z\s]*$"
+                                    #degreecompleted="ngModel"
+                                    [class.is-invalid]="degreecompleted.invalid && degreecompleted.touched"
+                                    >
+                                    <div *ngIf="degreecompleted.errors && degreecompleted.invalid && degreecompleted.touched">
+                                      <small class="text-danger" *ngIf="degreecompleted.errors.required"><b>Field is Required</b></small>
+                                      <small class="text-danger" *ngIf="degreecompleted.errors.pattern"><b>Invalid Degree Completed</b></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password : <b style="color:red;">*</b></label>
+                                    <input type="password" class="form-control" placeholder="Confirm Password *" id="confirmpassword" name="ConfirmPassword" (ngModel)="teacher.password" required
+                                    #password="ngModel"
+                                    [class.is-invalid]="password.invalid && password.touched"
+                                    >
+                                    <div *ngIf="password.errors && password.invalid && password.touched">
+                                      <small class="text-danger" [class.d-none]="(password.value == password.value) || password.untouched"><b>password not matched</b></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button [disabled]="Updateform.form.invalid" type="submit" id="update" class="btn registerbtn">Update</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
