@@ -1,0 +1,112 @@
+<div class="container register">
+    <div class="row">
+        <div class="col-md-9 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">User Registration</h3>
+                    <small class="text-danger"><b>{{msg}}</b></small>
+                    <form #userform="ngForm" (ngSubmit)="registerUser()">
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><b>User Name : </b> <b style="color:red;">*</b></label>
+                                <input type="text" class="form-control" id="username" placeholder="User Name *" name="username" [(ngModel)]="user.username" required pattern="^[a-zA-Z\s]*$"
+                                #username="ngModel"
+                                [class.is-invalid]="username.invalid && username.touched"
+                                >
+                                <div *ngIf="username.errors && username.invalid && username.touched">
+                                  <small class="text-danger" *ngIf="username.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="username.errors.pattern"><b>Invalid User Name</b></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><b>Gender : </b><b style="color:red;">*</b></label>
+                                <input type="text" class="form-control" placeholder="Gender *" id="gender" name="usergender" [(ngModel)]="user.gender" required pattern="^[a-zA-Z\s]*$"
+                                #usergender="ngModel"
+                                [class.is-invalid]="usergender.invalid && usergender.touched"
+                                >
+                                <div *ngIf="usergender.errors && usergender.invalid && usergender.touched">
+                                  <small class="text-danger" *ngIf="usergender.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="usergender.errors.pattern"><b>Invalid Gender</b></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><b>Profession : </b><b style="color:red;">*</b></label>
+                                <input type="text" class="form-control" id="profession" placeholder="Your Profession *" name="userprofession" [(ngModel)]="user.profession" required pattern="^[a-zA-Z\s]*$"
+                                #userprofession="ngModel"
+                                [class.is-invalid]="userprofession.invalid && userprofession.touched"
+                                >
+                                <div *ngIf="userprofession.errors && userprofession.invalid && userprofession.touched">
+                                  <small class="text-danger" *ngIf="userprofession.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="userprofession.errors.pattern"><b>Invalid Profession</b></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><b>Password : </b><b style="color:red;">*</b></label>
+                                <input type="password" class="form-control" placeholder="Password *" id="pwd" name="pwd" [(ngModel)]="user.password" required 
+                                #userpassword="ngModel"
+                                [class.is-invalid]="userpassword.invalid && userpassword.touched">
+                                <div *ngIf="userpassword.errors && userpassword.invalid && userpassword.touched">
+                                    <small class="text-danger" *ngIf="userpassword.errors.required"><b>Field is Required</b></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><b>Email : </b><b style="color:red;">*</b></label>
+                                <input type="email" class="form-control" placeholder="Email Address *" id="email" name="useremail" [(ngModel)]="user.email" required pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                                #useremail="ngModel"
+                                [class.is-invalid]="useremail.invalid && useremail.touched"
+                                >
+                                <div *ngIf="useremail.errors && useremail.invalid && useremail.touched">
+                                  <small class="text-danger" *ngIf="useremail.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="useremail.errors.pattern"><b>Invalid Email</b></small>
+                                </div>  
+                            </div>
+                            <div class="form-group">
+                                <label><b>Mobile Number : </b><b style="color:red;">*</b></label>
+                                <input type="tel" maxlength="10" minlength="10" id="mobile" class="form-control" placeholder="Mobile *" name="usermobile" [(ngModel)]="user.mobile" required pattern="^[0-9\+\-\ ]*$"
+                                #usermobile="ngModel"
+                                [class.is-invalid]="usermobile.invalid && usermobile.touched"
+                                >
+                                <div *ngIf="usermobile.errors && usermobile.invalid && usermobile.touched">
+                                  <small class="text-danger" *ngIf="usermobile.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="usermobile.errors.pattern"><b>Invalid Mobile Number</b></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><b>Address : </b><b style="color:red;">*</b></label>
+                                <input type="text" class="form-control" placeholder="Address *" id="address" name="useraddress" [(ngModel)]="user.address" required
+                                #useraddress="ngModel"
+                                [class.is-invalid]="useraddress.invalid && useraddress.touched"
+                                >
+                                <div *ngIf="useraddress.errors && useraddress.invalid && useraddress.touched">
+                                  <small class="text-danger" *ngIf="useraddress.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="useraddress.errors.pattern"><b>Invalid Address</b></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><b>Confirm Password :</b><b style="color:red;">*</b></label>
+                                <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password *" name="ConfirmPassword" (ngModel)="user.password" required
+                                #userconfirmPassword="ngModel"
+                                [class.is-invalid]="userconfirmPassword.invalid && userconfirmPassword.touched"
+                                >
+                                <div *ngIf="userconfirmPassword.errors && userconfirmPassword.invalid && userconfirmPassword.touched">
+                                  <small class="text-danger" [class.d-none]="(userconfirmPassword.value == userconfirmPassword.value) || userconfirmPassword.untouched"><b>Password not matched</b></small>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="checkbox" style="margin-top: -8%; margin-left: 11%;">
+                        <small style="color: gray;"><input type="checkbox" class="checkbox" name="remember" required> I agree to all Terms & Conditions</small>
+                    </div>
+                    <div style="margin-top: -3%; margin-left: 58.5%; margin-bottom: 3%; color: rgb(0, 0, 0); font-size: 16px;">Already have an Account? 
+                        <small [routerLink]="['/loginUser']" style="color: navy; text-align: center; cursor: pointer;" id="click"><b>click here</b></small>
+                    </div>
+                    <button [disabled]="userform.form.invalid" type="submit" class="btnRegister">Register</button>
+                </form>
+                </div>
+               </div>
+               </div>
+               </div>
+               </div>

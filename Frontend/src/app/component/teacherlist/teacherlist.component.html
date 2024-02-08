@@ -1,0 +1,37 @@
+<app-header></app-header>
+
+<div class="heading-text"><b>Teacher List</b></div>
+<div class="row">
+        <div *ngFor="let teacher of teacherlist | async" class="col-4 card" id="bloodCards">
+         <div class="img-block">
+            <div class="circle">
+                <img *ngIf="teacher.gender === 'Male' || teacher.gender === 'male'"  class="bloodimg" [src]="'assets/img/maleprofessor.png'" width="120" height="120">
+                <img *ngIf="teacher.gender === 'Female' || teacher.gender === 'female'"  class="bloodimg" [src]="'assets/img/femaleprofessor.png'" width="120" height="120">
+            </div>
+        </div>
+        <div class="card-block">
+            <div class="text"><b style="color: darkblue">Teacher ID : </b><b style="color: darkred;"><small class="date-cover">{{teacher.teacherid}}</small></b></div>
+            <div class="text"><b style="color: darkblue">Teacher Name : </b><b style="color: darkred;"> {{teacher.teachername}} </b></div>
+            <div class="text"><b style="color: darkblue">Degree Completed : </b><b style="color: darkred;"> {{teacher.degreecompleted}} </b></div>
+            <div class="text"><b style="color: darkblue">Email : </b><b style="color: darkred;"> {{teacher.email}} </b></div>
+            <div class="text"><b style="color: darkblue">Institution Name : </b><b style="color: darkred;"> {{teacher.institutionname}} </b></div>
+            <div class="text"><b style="color: darkblue">Department : </b><b style="color: darkred;"> {{teacher.department}} </b></div>
+            <div class="text"><b style="color: darkblue">Experience: </b><b style="color: darkred;"> {{teacher.experience}} years </b></div>
+            <div class="text"><b style="color: darkblue">Gender : </b><b style="color: darkred;"> {{teacher.gender}} </b></div>
+            <div class="text"><b style="color: darkblue">Mobile : </b><b style="color: darkred;"> {{teacher.mobile}} </b></div>
+            <div class="pos">
+                <div *ngIf="teacher.status === 'accept'">
+                    <div class="status-btn">Approved Teacher</div>
+                </div>
+                <div *ngIf="teacher.status === 'reject'" >
+                    <div class="status-btn2">Rejected</div>
+                </div>
+                <div *ngIf="teacher.status === 'false'" >
+                    <div class="status-btn1">Approval Pending</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+<app-footer></app-footer>
