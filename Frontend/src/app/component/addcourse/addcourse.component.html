@@ -1,0 +1,123 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<app-header></app-header>
+
+<div class="container register">
+    <div class="row">
+        <div class="col-md-9 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h3  class="register-heading"><i class="fa fa-sticky-note-o"></i> New Course</h3>
+                    <small class="text-danger"><b>{{msg}}</b></small>
+                    <form #courseform="ngForm" (ngSubmit)="addCourse()">
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Course Name : <b style="color:red;">*</b></label>
+                                <input type="text" class="form-control" placeholder="Enter Course Name" name="coursename" [(ngModel)]="course.coursename" required pattern="^[a-zA-Z\s]*$"
+                                #coursename="ngModel"
+                                [class.is-invalid]="coursename.invalid && coursename.touched"
+                                >
+                                <div *ngIf="coursename.errors && coursename.invalid && coursename.touched">
+                                  <small class="text-danger" *ngIf="coursename.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="coursename.errors.pattern"><b>Invalid Course Name</b></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Instructor Name : <b style="color:red;">*</b></label>
+                                <input type="text" id="instructorname" class="form-control" placeholder="Enter Instructor Name" name="instructorname" [(ngModel)]="course.instructorname" required pattern="^[a-zA-Z\s]*$"
+                                #instructorname="ngModel"
+                                [class.is-invalid]="instructorname.invalid && instructorname.touched"
+                                >
+                                <div *ngIf="instructorname.errors && instructorname.invalid && instructorname.touched">
+                                  <small class="text-danger" *ngIf="instructorname.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="instructorname.errors.pattern"><b>Invalid Instructor Name</b></small>
+                                </div>
+                               <small class="text-danger" [class.d-none]="instructorname.valid || instructorname.untouched"><b></b></small>
+                            </div>
+                            <div class="form-group">
+                                <label>Course Video ID : (only ID) <b style="color:red;">*</b></label>
+                                <input type="url" class="form-control" id="youtubelinks" placeholder="Please mention youtube video ID" name="youtubeurl" [(ngModel)]="course.youtubeurl" required 
+                                #youtubeurl="ngModel"
+                                [class.is-invalid]="youtubeurl.invalid && youtubeurl.touched">
+                                <small class="text-danger" [class.d-none]="youtubeurl.valid || youtubeurl.untouched"><b></b></small>
+                            </div>
+                            <div class="form-group">
+                                <label>Course Type : <b style="color:red;">*</b></label>
+                                <select class="form-control" id="sel1" name="coursetype" [(ngModel)]="course.coursetype"
+                                #coursetype="ngModel">
+                                    <option value="Website">Website</option>
+                                    <option value="Youtube">Youtube</option>
+                                    <option>Live Interaction</option>
+                                    <option>Google Classroom</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Course Language : <b style="color:red;">*</b></label>
+                                <select class="form-control" id="sel4" name="language" [(ngModel)]="course.language"
+                                #language="ngModel">
+                                    <option>Tamil</option>
+                                    <option>English</option>
+                                    <option>Hindi</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Enrolled Date : <b style="color:red;">*</b></label>
+                                <input type="date" class="form-control" placeholder="Select Enrolled Date" name="enrolleddate" id="enrolleddate" [(ngModel)]="course.enrolleddate" required
+                                #enrolleddate="ngModel"
+                                [class.is-invalid]="enrolleddate.invalid && enrolleddate.touched">
+                                <small class="text-danger" [class.d-none]="enrolleddate.valid || enrolleddate.untouched"><b></b></small>                          
+                            </div>
+                            <div class="form-group">
+                                <label>Institution Name : <b style="color:red;">*</b></label>
+                                <input type="text" class="form-control" placeholder="Enter Instructor Institution Name" name="instructorinstitution" id="instructorinstitution" [(ngModel)]="course.instructorinstitution" required pattern="^[a-zA-Z\s]*$"
+                                #instructorinstitution="ngModel"
+                                [class.is-invalid]="instructorinstitution.invalid && instructorinstitution.touched"
+                                >
+                                <div *ngIf="instructorinstitution.errors && instructorinstitution.invalid && instructorinstitution.touched">
+                                  <small class="text-danger" *ngIf="instructorinstitution.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="instructorinstitution.errors.pattern"><b>Invalid Institution Name</b></small>
+                                </div>
+                               <small class="text-danger" [class.d-none]="instructorinstitution.valid || instructorinstitution.untouched"><b></b></small>
+                            </div>
+                            <!-- <div class="form-group" style="display: none;" id="websitelink">
+                                <label>Course Website URL : <b style="color:red;">*</b></label>
+                                <input type="url" class="form-control" placeholder="Please mention website url" name="websiteurl" [(ngModel)]="course.websiteurl"
+                                #websiteurl="ngModel"
+                                [class.is-invalid]="websiteurl.invalid && websiteurl.touched">
+                            </div> -->
+                            <div class="form-group">
+                                <label>Skill Level : <b style="color:red;">*</b></label>
+                                <select class="form-control" id="sel6" name="skilllevel" [(ngModel)]="course.skilllevel"
+                                #skilllevel="ngModel">
+                                    <option>Basic</option>
+                                    <option>Intermediate</option>
+                                    <option>Advanced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Course Description : <b style="color:red;">*</b></label>
+                                <textarea type="text" rows = "4" class="form-control" placeholder="Enter Course Description Here" name="description" [(ngModel)]="course.description" required pattern="^[a-zA-Z\s]*$"
+                                #description="ngModel"
+                                [class.is-invalid]="description.invalid && description.touched"
+                                ></textarea>
+                                <div *ngIf="description.errors && description.invalid && description.touched">
+                                  <small class="text-danger" *ngIf="description.errors.required"><b>Field is Required</b></small>
+                                  <small class="text-danger" *ngIf="description.errors.pattern"><b>Invalid Description</b></small>
+                                </div>
+                               <small class="text-danger" [class.d-none]="description.valid || description.untouched"><b></b></small>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btnRegister" id="addcoursesub"><i class="fa fa-plus"></i> Add Course</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>		
+
+<app-footer></app-footer>

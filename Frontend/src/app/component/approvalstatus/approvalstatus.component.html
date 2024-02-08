@@ -1,0 +1,107 @@
+<app-header></app-header>
+
+<div class="panel panel-primary" id="teacherapproval">
+    <div class="panel-heading">
+      <h2 *ngIf="currRole === 'teacher' || currRole === 'TEACHER'" style="text-align: center; font-family: 'Oswald', sans-serif;color: maroon; margin-top: 3%; margin-bottom: 4%;"> Your Approval Status 
+        <div *ngFor="let teacher of approval | async" style="margin-top: 1%;">
+            <div *ngIf="teacher.status === 'accept'"><h2><small style="color: green;">(Verified & Accepted) ID : <small class="date-cover">{{teacher.teacherid}}</small></small></h2></div>
+            <div *ngIf="teacher.status === 'false'"><h2><small style="color: rgb(161, 106, 34);">(Not yet Verified)</small></h2></div>
+            <div *ngIf="teacher.status === 'reject'"><h2><small style="color: rgb(184, 36, 36);">(Verified & Rejected)</small></h2></div>
+        </div>
+      </h2>
+    </div>
+    <div class="panel-body">
+      <table cass="table table-bordered">
+        <!-- <thead class="headercolor">
+          <tr>
+            <th>Idendity</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Degree</th>
+            <th>Experience</th>
+            <th>Instituion</th>
+            <th>Department</th>
+            <th>mobile</th>
+            <th>Status</th>
+          </tr>
+        </thead> -->
+        <tbody>
+          <tr *ngFor="let teacher of approval | async">
+            <td><img *ngIf="teacher.gender === 'Male' || teacher.gender === 'male'" class="bloodimg" [src]="'assets/img/maleprofessor.png'" width="80" height="80">
+              <img *ngIf="teacher.gender === 'Female' || teacher.gender === 'female'" class="bloodimg" [src]="'assets/img/femaleprofessor.png'" width="80" height="80">
+              </td>
+            <td>{{teacher.teachername}}</td>
+            <td>{{teacher.email}}</td>
+            <td>{{teacher.degreecompleted}}</td>
+            <td>{{teacher.experience}} years</td>
+            <td>{{teacher.institutionname}} </td>
+            <td>{{teacher.department}}</td>
+            <td>{{teacher.mobile}}</td>
+            <td>
+                <div *ngIf="currRole === 'teacher' || currRole === 'TEACHER' && teacher.email === loggedUser">
+                    <div *ngIf="teacher.status === 'accept'" class="accepted">Accepted</div>
+                    <div *ngIf="teacher.status === 'false'" class="pending">Pending</div>
+                    <div *ngIf="teacher.status === 'reject'" class="rejected">Rejected</div>
+                </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<div class="panel panel-primary" id="adminapproval">
+    <div class="panel-heading">
+      <h2 *ngIf="currRole === 'admin' || currRole === 'ADMIN'" style="text-align: center; font-family: 'Oswald', sans-serif;color: darkgreen; margin-top: 3%; margin-bottom: 3%;"> Approve Teacher Here 
+      </h2>
+    </div>
+    <div class="panel-body">
+      <table cass="table table-bordered">
+        <thead>
+          <tr>
+            <th>Idendity</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Degree</th>
+            <th>Experience</th>
+            <th>Instituion</th>
+            <th>Department</th>
+            <th>mobile</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let teacher of teacherlist | async">
+            <td><img *ngIf="teacher.gender === 'Male' || teacher.gender === 'male'" class="bloodimg" [src]="'assets/img/maleprofessor.png'" width="80" height="80">
+              <img *ngIf="teacher.gender === 'Female' || teacher.gender === 'female'" class="bloodimg" [src]="'assets/img/femaleprofessor.png'" width="80" height="80">
+            </td>
+            <td>{{teacher.teachername}}</td>
+            <td>{{teacher.email}}</td>
+            <td>{{teacher.degreecompleted}}</td>
+            <td>{{teacher.experience}} years</td>
+            <td>{{teacher.institutionname}} </td>
+            <td>{{teacher.department}}</td>
+            <td>{{teacher.mobile}}</td>
+            <td>
+                <div *ngIf="loggedUser === 'admin@gmail.com' && teacher.status === 'false'" >
+                  <button (click)="acceptRequest(teacher.email)" id="acceptbtn" value="teacher.email" value="Accept" style="margin-bottom: 5px;" class="accepted">Accept</button><br>
+                  <button (click)="rejectRequest(teacher.email)" id="rejectbtn" value="teacher.email" value="Reject" class="rejected">Reject</button>
+                  <div id="acceptedbtn" class="accepted" style="display: none;">Accepted</div>
+                  <div id="rejectedbtn" class="rejected" style="display: none;">Rejected</div>
+                </div>
+                <div *ngIf="loggedUser === 'admin@gmail.com' && teacher.status === 'accept'" >
+                  <div class="accepted">Accepted</div>
+                </div>
+                <div *ngIf="loggedUser === 'admin@gmail.com' && teacher.status === 'reject'" >
+                  <div class="rejected">Rejected</div>
+                </div>
+                <div *ngFor="let details of responses | async"></div>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<br><br><br>
+<app-footer></app-footer>

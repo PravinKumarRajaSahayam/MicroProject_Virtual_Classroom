@@ -1,0 +1,53 @@
+<div class="wrapper">
+    <div class="container">
+        <button class="headbtn2" id="teacherbtn"></button>
+      
+        <div class="teacher-login-form">
+            <h2 class="textual">LOGIN</h2>
+             <form #teacherloginform="ngForm" (ngSubmit)="loginTeacher()">
+               <small class="text-danger"><b>{{msg}}</b></small>
+                 <div class="form-group">
+                 <label for="email"><b>Email address : </b><b class="text-danger">*</b></label>
+                 <input type="email" class="form-control" id="email" placeholder="Enter Email" name="teacheremail" [(ngModel)]="teacher.email" required pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                 #teacheremail="ngModel"
+                 [class.is-invalid]="teacheremail.invalid && teacheremail.touched"
+                 >
+               <!--<small class="text-danger" [class.d-none]="professoremail.valid || professoremail.untouched"><b>required field</b></small>-->
+               <div *ngIf="teacheremail.errors && teacheremail.invalid && teacheremail.touched">
+                 <small class="text-danger" *ngIf="teacheremail.errors.required"><b>Field is required</b></small>
+                 <small class="text-danger" *ngIf="teacheremail.errors.pattern"><b>Invalid Email Id</b></small>
+               </div>
+               </div>
+         
+               <div class="form-group" id="pwd">
+                 <label for="pwd" style="margin-top: 5px;"><b>Password : </b><b class="text-danger">*</b></label>
+                 <input type="password" class="form-control" id="password" placeholder="Enter Password" name="pwd" [(ngModel)]="teacher.password" required 
+                 #teacherpassword="ngModel"
+                 [class.is-invalid]="teacherpassword.invalid && teacherpassword.touched"
+                 >
+                 <div *ngIf="teacherpassword.errors && teacherpassword.invalid && teacherpassword.touched">
+                   <small class="text-danger" *ngIf="teacherpassword.errors.required"><b>Field is required</b></small>
+                 </div>
+               </div>
+         
+               <div class="checkbox" style="margin-top: 5px;">
+                 <small style="color: gray;"><input type="checkbox" name="remember"> Remember me</small>
+                 <small style="color: navy; margin-left: 42%; cursor: pointer;">forgot password?</small>
+               </div>
+               <button [disabled]="teacherloginform.form.invalid" type="submit" class="btn loginbtn">Login</button>
+             </form>
+             <div class="sign-up" style=" text-align: center; margin-top: 10px;">Don't have an Account? <small [routerLink]="['/registration']" style="color: navy; text-align: center; cursor: pointer;"><b>Create One</b></small></div>
+             <hr>
+             <p class="text-center mt-3"><b> or Login with </b></p>
+            <div class="text-center">
+              <i class="fa fa-google  mx-3 fa-2x"></i>
+              <i class="fa fa-linkedin mx-3 fa-2x"></i>
+              <i class="fa fa-twitter  mx-3 fa-2x"></i>
+              <i class="fa fa-windows  mx-3 fa-2x"></i>
+              <i class="fa fa-apple fa-retro mx-3 fa-2x"></i>
+              <i class="fa fa-github  mx-3 fa-2x"></i>
+            </div>
+             </div>
+    
+        </div>
+        </div>
